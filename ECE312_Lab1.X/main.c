@@ -1,6 +1,6 @@
 /*
  * File:   main.c
- * Author: ktaggar
+ * Author: ktaggar & zfeng8
  *
  * Created on October 2, 2026, 2:24 PM
  */
@@ -41,19 +41,17 @@ uint8_t button_pressed(void){
 int main(void) {
     
     // define LED lights
-    DDRB |= led_mask;      // PB2, PB3, PB4 as outputs (0b00011100)
-    PORTB |= led_mask;
+    DDRB |= led_mask;      // Led off at start because we have a common anode led
+    PORTB |= led_mask;     // PB2, PB3, PB4 as outputs (0b00011100)
     
     DDRD &= ~(1 << PD0); // set PD0 to be the input pin
     PORTD |= (1 << PD0); // enable pull-up resistor for switch
 
-    uint8_t color = led_off; // start on a known color instead of reading PINB
+    uint8_t color = led_off; // start at led off
     
-
     while (1) {
-        
         if (button_pressed() == 1){
-            _delay_ms(20);
+            _delay_ms(20); // Debounce press
             if (button_pressed() == 1) {
                 switch(color){
                     case led_off:
@@ -84,11 +82,10 @@ int main(void) {
                         color = led_off;
                         break;
                 }
-                PORTB = (PORTB | led_mask) & ~color;
+                PORTB = (PORTB | led_mask) & ~color; // Update the color to be the opposite of color variable due to us having a common anode led
                 while (button_pressed());  // Wait for release
                 _delay_ms(20);             // Debounce release
             }
         }
-       
     }
 }
