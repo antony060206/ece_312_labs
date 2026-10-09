@@ -42,7 +42,7 @@ int main(void) {
     
     // define LED lights
     DDRB |= led_mask;      // PB2, PB3, PB4 as outputs (0b00011100)
-    PORTB &= ~led_mask;
+    PORTB |= led_mask;
     
     DDRD &= ~(1 << PD0); // set PD0 to be the input pin
     PORTD |= (1 << PD0); // enable pull-up resistor for switch
@@ -84,7 +84,7 @@ int main(void) {
                         color = led_off;
                         break;
                 }
-                PORTB = (PORTB & ~led_mask) | color;
+                PORTB = (PORTB | led_mask) & ~color;
                 while (button_pressed());  // Wait for release
                 _delay_ms(20);             // Debounce release
             }
