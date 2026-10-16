@@ -1,6 +1,9 @@
 /*
  * File:   main.c
- * Author: ktaggar & zfeng8
+ * AUthor Name: Komaldeep Tagger & Antony Feng
+ * Author ccid: ktaggar & zfeng8
+
+ *Ai usage for learning and reserach purposes (15%), human code (85%)
  *
  * Created on October 2, 2026, 2:24 PM
  */
