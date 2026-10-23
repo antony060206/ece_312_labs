@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   main.c
  * Author: ktaggar, zfeng8
  * modules to be inlcluded:
@@ -29,11 +29,15 @@ int main(int argc, char** argv) {
     // set the prescalling factor to 8
     TCCR0B = (1<<CS01);
     // sets the frequency per flip 
-    OCR0A = 239;
+    OCR0A = 238;
     
    
     // 16 bit timer: 
-    TCCR1A =  
+    // set as compare toggle
+    TCCR1A = (1<<COM1A0);
+    TCCR1B = (1<<CS10);
+    OCR1A = 1135;
     
+    while(1);
 }
 
