@@ -6,10 +6,10 @@
 
 #define F_CPU 1000000UL
 #define GAP_MS   30
-#define ECHO_MIN_US 235
-#define ECHO_MAX_US 471
-#define T1_RISING     ((1 << ICNC1) | (1 << ICES1) | (1 << CS10))
-#define T1_FALLING    ((1 << ICNC1) | (1 << CS10))
+#define ECHO_MIN_US 230
+#define ECHO_MAX_US 455
+#define T1_RISING     ((1 << ICNC1) | (1 << ICES1) | (1 << CS10)) //ICES1 set to capture on rising edge, cs10 clock select 
+#define T1_FALLING    ((1 << ICNC1) | (1 << CS10)) // flips the edge select bit
 
 #include <avr/io.h>
 #include <util/delay.h>
@@ -17,6 +17,7 @@
 #include "songs.h"
 
 //delay_ms() needs a compile-time constant, so a variable delay has to be
+// this function the same as a delay
 static void hold_ms(uint16_t ms)
 {
     while (ms--) {
@@ -25,6 +26,7 @@ static void hold_ms(uint16_t ms)
 }
 
 //play the voice (timer0) and lower voice (timer1)
+// voice are timer choices 0 is timer0, 1 is timer1
 static void play_voice(uint8_t voice)
 {
     uint8_t i;
@@ -59,61 +61,56 @@ static void play_voice(uint8_t voice)
 //}
 
 
-
+// calculates the time it takes to travel back and forth in us for the wave between 4-8cm 
 static uint16_t hcsr04_read_us(void)
 {
     uint16_t start, end;
  
-    /* Timer1 free-running at 1 us per tick, capture on the rising edge. */
+    //Timer1 in normal mode (just a plain counter), TCCR1B starts at 1us/tick begins the moment cs10 is set 
     TCCR1A = 0;
-    TCCR1B = T1_RISING;
-    TCNT1  = 0;                     /* so TCNT1 doubles as a timeout clock */
- 
-    /* --- the trigger pulse --- */
+    TCCR1B = T1_RISING; // arm for rising
+    TCNT1  = 0;                     
+    
+    // input for the trigger as recommended by the datasheet, 10us to start the ranging cycle then emits 8 cycles of 40MHz burst then raise echo
     PORTD |=  (1 << PD5);
     _delay_us(10);
     PORTD &= ~(1 << PD5);
  
-    /* --- wait for Echo to go high --- *
-     * ICF1 is cleared by WRITING A ONE to it, not by clearing the bit. */
+    // Timer/counter interrupt flag as the input capture event
     TIFR = (1 << ICF1);
-    while (!(TIFR & (1 << ICF1))) {
-        if (TCNT1 > 60000) {
+    while (!(TIFR & (1 << ICF1))) { // continues the loop to see if edge arrives on pd6
+        if (TCNT1 > 60000) { // if the counter goes beyond 60000 ticks means the sensor isnt responding
             TCCR1B = 0;
-            return 0;               /* nothing out there */
+            return 0;               
         }
     }
-    start = ICR1;                   /* hardware timestamped the edge */
+    start = ICR1; //holds a copy of TCNT1 (timer1) on rising 
  
-    /* --- now wait for it to go low --- *
-     * Change the edge first, then clear the flag: switching ICES1 can set
-     * ICF1 by itself. */
-    TCCR1B = T1_FALLING;
+    TCCR1B = T1_FALLING; //arm for falling
     TIFR = (1 << ICF1);
-    while (!(TIFR & (1 << ICF1))) {
+    while (!(TIFR & (1 << ICF1))) { 
         if (TCNT1 > 60000) {
             TCCR1B = 0;
-            return 0;               /* echo never came back down */
+            return 0;               // no echo back, no response
         }
     }
     end = ICR1;
  
-    TCCR1B = 0;                     /* stop Timer1 */
+    TCCR1B = 0;                     
  
-    /* Unsigned subtraction, so this is still correct if TCNT1 rolled over
-     * between the two edges (e.g. 200 - 65000 gives 736 in a uint16_t). */
     return end - start;
 }
 
 static uint8_t sensor_detect(void){
-    uint16_t a, b;
+    uint16_t a; 
+    // uint16_t b;
 
     a = hcsr04_read_us();
-    hold_ms(80);                        /* ?60 ms between pings */
-    b = hcsr04_read_us();
+//    hold_ms(40);                       
+//    b = hcsr04_read_us();
 
-    return (a >= ECHO_MIN_US && a <= ECHO_MAX_US &&
-            b >= ECHO_MIN_US && b <= ECHO_MAX_US);
+    return (a >= ECHO_MIN_US && a <= ECHO_MAX_US);
+            //&& (b >= ECHO_MIN_US && b <= ECHO_MAX_US);
            
 }
 
@@ -180,6 +177,3 @@ int main(void)
 }
         
     
-
-
-
