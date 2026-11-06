@@ -2,7 +2,7 @@
  * File:   main.c
  * Author: ktaggar, zfeng8
  *
- * AI usage for learning and research purposes (30%), human code (85%)
+ * AI usage for learning and research purposes (30%), human code (70%)
  *
  */
 
