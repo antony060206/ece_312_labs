@@ -2,6 +2,8 @@
  * File:   main.c
  * Author: ktaggar, zfeng8
  *
+ * AI usage for learning and research purposes (30%), human code (85%)
+ *
  */
 
 #define F_CPU 1000000UL
