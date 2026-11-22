@@ -1,0 +1,151 @@
+/*
+ * ----------------------------------------------------------------------------
+ * "THE BEER-WARE LICENSE" (Revision 42):
+ * <joerg@FreeBSD.ORG> wrote this file.  As long as you retain this notice you
+ * can do whatever you want with this stuff. If we meet some day, and you think
+ * this stuff is worth it, you can buy me a beer in return.        Joerg Wunsch
+ * ----------------------------------------------------------------------------
+ *
+ * Stdio demo, upper layer of LCD driver.
+ *
+ * $Id: lcd.c 2265 2011-12-28 21:28:29Z joerg_wunsch $
+ */
+
+#include "defines.h"
+
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+
+#include <avr/io.h>
+
+#include <util/delay.h>
+
+#include "hd44780.h"
+#include "lcd.h"
+
+/*
+ * Setup the LCD controller.  First, call the hardware initialization
+ * function, then adjust the display attributes we want.
+ */
+void lcd_init(void)
+{
+
+  hd44780_init();
+
+  /*
+   * Clear the display.
+   */
+  hd44780_outcmd(HD44780_CLR);
+  hd44780_wait_ready(true);
+
+  /*
+   * Entry mode: auto-increment address counter, no display shift in
+   * effect.
+   */
+  hd44780_outcmd(HD44780_ENTMODE(1, 0));
+  hd44780_wait_ready(false);
+
+  /*
+   * Enable display, activate non-blinking cursor.
+   */
+  hd44780_outcmd(HD44780_DISPCTL(1, 0, 0));
+  hd44780_wait_ready(false);
+  
+  PORTD |= (1 << PD4); // Set D4 high
+  PORTD |= (1 << PD5); // Set D5 high
+  PORTD |= (1 << PD6); // Set D6 high
+  PORTD |= (1 << PD7); // Set D7 high
+}
+
+/*
+ * Send character c to the LCD display.  After a an ESC (0x1B) has been seen,
+ * the next character (byte) will be sent to the LCD as a command.
+ */
+int lcd_putchar(char c, FILE *unused) {
+  static bool esc_seen;   // Use of the static keyword makes the value persistent.
+
+  if (!esc_seen) {
+      /* The last character was not an escape character. Check for this time. */
+      if (c == 0x1b) {
+        esc_seen = true;
+      } else {
+        /* The information can be written as data. */
+        hd44780_wait_ready(false);
+        hd44780_outdata(c);
+      }
+  } else {
+      /* Last character was ESC = 0x1B: treat this byte as a command. Since the command 
+         is arbitrary it may be one that takes a long time to execute: "Clear Display" 
+         and "Return Home" are those commands.  However, if USE_BUSY_BIT is true, then a
+         spin-wait on BF is made. */
+      hd44780_wait_ready(false);
+      hd44780_outcmd(c); // Send the byte as a command
+      
+      if (c <= 3) {
+        /* This is either a Clear Display or Return home command. */
+        hd44780_wait_ready(true);  // Long delay.
+      }
+      
+      /* Clear the flag to return to "normal" data processing. */
+      esc_seen = false;
+  }
+  
+  return 0;
+}
+
+/*
+* Set the cursor position on the HD44780-based LCD.
+* Adapted from the HD44780 LCD library
+*/
+void lcd_gotoxy(uint8_t x, uint8_t y){
+
+   uint8_t addr;
+
+   // Calculate the address based on the x and y coordinates
+   if (y == 0){
+       addr = 0x00 + x; // First row starts at 0x00
+   }else{
+       addr = 0x40 + x; // Second row starts at 0x40 
+   }
+
+   // Set DDRAM address
+   hd44780_outcmd(HD44780_DDADDR(addr));
+   hd44780_wait_ready(false);
+}
+
+/*
+ * Send a string to the LCD display.
+ * Outputs each character until the null terminator.
+ * Adapted from the HD44780 LCD library
+ */
+ void lcd_puts(const char *s){
+    while (*s){
+       lcd_putchar(*s++, NULL); // Output each character of the string
+    }
+ }
+ 
+ /*
+ * Clear the LCD display.
+ */
+void lcd_clrscr(void) {
+    hd44780_outcmd(HD44780_CLR);  // Clear display command
+    hd44780_wait_ready(true);     // Wait for the command to complete
+}
+
+void lcd_puts_padded(const char *s, uint8_t row)
+{
+    uint8_t n = 0;
+
+    lcd_gotoxy(0, row);
+
+    while (s[n] && n < 16) {        /* the string, capped at 16 */
+        lcd_putchar(s[n], NULL);
+        n++;
+    }
+    while (n < 16) {                /* spaces for the rest */
+        lcd_putchar(' ', NULL);
+        n++;
+    }
+}
+ 
