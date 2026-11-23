@@ -20,7 +20,7 @@ void adc_init(void){
    DIDR0 |=  (1 << ADC1D) | (1 << ADC0D); // digital buffer off
    
    ADMUX = (1 << REFS0); // set AVCC reference  
-   ADCSRA = (1 << ADEN)| (1 << ADPS1)|(1 << ADPS0);// set the ADC configuration and prescalling to 8 (8Mhz/8 = 125khz) falls within 50-200
+   ADCSRA = (1 << ADEN)| (1 << ADPS2) | (1 << ADPS1)|(1 << ADPS0);// set the ADC configuration and prescalling to 128 (14745600hz/128 = 115khz) falls within 50-200
 }
 
 // convert int to percentage
@@ -28,7 +28,7 @@ int16_t adc_conversion(uint16_t pos, uint16_t centre)
 {
     int16_t d = (int16_t)pos - (int16_t)centre;
     int16_t pct;
-
+    
     if (d >= 0) pct = ((int32_t)d * 100) / (1023 - centre);
     else        pct = ((int32_t)d * 100) / centre;
 
@@ -54,7 +54,7 @@ void joystick_calibrate(void)
 {
     uint32_t sx = 0, sy = 0;
     for (uint8_t i = 0; i < 16; i++) {
-        sx += adc_read(ADC_VRX );
+        sx += adc_read(ADC_VRX);
         sy += adc_read(ADC_VRY);
         _delay_ms(2);
     }

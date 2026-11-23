@@ -12,7 +12,7 @@
  */
 
 /* CPU frequency */
-#define F_CPU 1000000UL
+#define F_CPU 14745600UL
 
 /* UART baud rate */
 #define UART_BAUD  9600

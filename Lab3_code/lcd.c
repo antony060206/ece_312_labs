@@ -16,7 +16,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
-
+#include <string.h>
 #include <avr/io.h>
 
 #include <util/delay.h>
@@ -132,20 +132,18 @@ void lcd_clrscr(void) {
     hd44780_outcmd(HD44780_CLR);  // Clear display command
     hd44780_wait_ready(true);     // Wait for the command to complete
 }
-
-void lcd_puts_padded(const char *s, uint8_t row)
+// centers the title of the game 
+void lcd_puts_centred(const char *s, uint8_t row)
 {
-    uint8_t n = 0;
+    uint8_t len = strlen(s);
+    uint8_t pad, i;
+
+    if (len > 16) len = 16;
+    pad = (16 - len) / 2;
 
     lcd_gotoxy(0, row);
-
-    while (s[n] && n < 16) {        /* the string, capped at 16 */
-        lcd_putchar(s[n], NULL);
-        n++;
-    }
-    while (n < 16) {                /* spaces for the rest */
-        lcd_putchar(' ', NULL);
-        n++;
-    }
+    for (i = 0; i < pad; i++)        lcd_putchar(' ', NULL);
+    for (i = 0; i < len; i++)        lcd_putchar(s[i], NULL);
+    for (i = pad + len; i < 16; i++) lcd_putchar(' ', NULL);
 }
  

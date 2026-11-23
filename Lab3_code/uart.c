@@ -10,8 +10,8 @@ char line[17];
 
 // init UART 
 void uart_init(void){
-    UBRR0 = 12; // set the baud rate to 9600 @1Mhz, U2X on
-    UCSR0A = (1 << U2X0); // double speed 
+    UBRR0 = 95; // set the baud rate to 9600 @1Mhz, U2X on
+    UCSR0A = 0; // double speed off
     UCSR0B = (1 << RXEN0) | (1 << TXEN0); // enable transmitter and receiver
     UCSR0C = (1 << UCSZ01) | (1 << UCSZ00); // 8 bit 
 }

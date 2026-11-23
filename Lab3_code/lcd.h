@@ -27,4 +27,4 @@ void lcd_puts(const char *s);     /****** */
 
 void lcd_clrscr(void);      /****** */
 
-void lcd_puts_padded(const char *s, uint8_t row);
+void lcd_puts_centred(const char *s, uint8_t row);

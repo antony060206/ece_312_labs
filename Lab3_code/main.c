@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <avr/io.h>
 #include <util/delay.h>
 
@@ -16,39 +17,74 @@
 #include "uart.h"
 #include "button.h"
 
+char buf[20], handle[7], score[4] = "000", ammo[4] = "000";
+
 // field variables
 static FILE lcd_str = FDEV_SETUP_STREAM(lcd_putchar, NULL, _FDEV_SETUP_WRITE);
 
+// external crystal config (needs to enable fuse programming)
+FUSES = {
+	.low = 0xFF, // LOW {SUT_CKSEL=EXTXOSC_8MHZ_XX_16KCK_14CK_65MS, CKOUT=CLEAR, CKDIV8=CLEAR}
+	.high = 0xD9, // HIGH {BOOTRST=CLEAR, BOOTSZ=2048W_3800, EESAVE=CLEAR, WDTON=CLEAR, SPIEN=SET, DWEN=CLEAR, RSTDISBL=CLEAR}
+	.extended = 0xFF, // EXTENDED {BODLEVEL=DISABLED}
+};
 
-int main(void)
-{
+LOCKBITS = 0xFF; // {LB=NO_LOCK, BLB0=NO_LOCK, BLB1=NO_LOCK}
+
+
+void init(void){
     //initiate all modules 
     lcd_init();
     adc_init();
     uart_init();
     button_init();
-    
-    lcd_gotoxy(0, 0); // start from the position 1 of row 1
-    lcd_puts_padded("ECE312 Lab3", 0);
     joystick_calibrate();
-   
+}
+
+int main(void)
+{
+    //initiate all modules 
+    init();
+    
+    //start-up
+    fprintf(&uart_str, "\r\n$Q?");
+    uart_gets();
+    lcd_puts_centred(line, 0); 
+    
+    // asks for handle
+    fprintf(&uart_str, "\r\n$Haaaaaa?");
+    uart_gets();
+    memcpy(handle, line + 1, 6);
+    handle[6] = '\0';
+    
     
     for (;;) {
-        // for testing counter 
+        
+        fprintf(&uart_str, "\r\nC%+04d%+04d%u", joystick_x(), joystick_y(), button_fire());
+        fprintf(&uart_str, "\r\n$SaaaAaaa?");
+        uart_gets();
+        
+        if (line[0] == 'S' && line[4] == 'A') {
+            memcpy(score, line + 1, 3);
+            memcpy(ammo,  line + 5, 3);
+        }
+
         lcd_gotoxy(0, 1);
+        fprintf(&lcd_str, "%s  %s  %s  ", handle, ammo, score);
+
+        fprintf(&uart_str, "\n?");
+        uart_gets();
+        if (line[0] == 'S') {
+            fprintf(&uart_str, "\r\nS%s", score);
+        }
         
-        // test 1 joystick
-        // fprintf(&lcd_str, "x=%+4d y=%+4d", joystick_x(), joystick_y());
+        else if (line[0] == 'A') {
+            fprintf(&uart_str, "\r\nA%s", ammo);
+        }
         
-        // test 2 UART connection
-//        fprintf(&uart_str, "Hello\r\n");
-//        _delay_ms(500);
-//        
-//        uart_gets();
-//        lcd_puts_padded(line, 1);
-//        _delay_ms(500);
+        else {
+            fprintf(&uart_str, "\r\n-Error");
+        }
         
-        //test 3 button
-        butt
     }
 }
