@@ -10,7 +10,7 @@ char line[17];
 
 // init UART 
 void uart_init(void){
-    UBRR0 = 7; // set the baud rate to 115200 @14.7456Mhz, U2X on
+    UBRR0 = 7; // set the baud rate to 115200 @14.7456Mhz, U2X on   
     UCSR0A = 0; // double speed off
     UCSR0B = (1 << RXEN0) | (1 << TXEN0); // enable transmitter and receiver
     UCSR0C = (1 << UCSZ01) | (1 << UCSZ00); // 8 data bits with no parity bit (checking bit) and 1 stopping bit.
