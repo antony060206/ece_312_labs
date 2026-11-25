@@ -23,7 +23,7 @@ void adc_init(void){
    ADCSRA = (1 << ADEN)| (1 << ADPS2) | (1 << ADPS1)|(1 << ADPS0);// set the ADC configuration and prescalling to 128 (14745600hz/128 = 115khz) falls within 50-200
 }
 
-// convert int to percentage
+// convert int to percentage from a range of: -100 to +100.
 int16_t adc_conversion(uint16_t pos, uint16_t centre)
 {
     int16_t d = (int16_t)pos - (int16_t)centre;
@@ -39,7 +39,7 @@ int16_t adc_conversion(uint16_t pos, uint16_t centre)
     return pct;
 }
 
-//return the ADC value 
+//return the ADC value. It does this by selecting a channel, starting the conversion, waiting for it to finish and then returning the 10 bit result.
 int16_t adc_read(uint16_t channel){
     ADMUX = (ADMUX & 0xF0) | (channel & 0x0F); // begin
     ADCSRA |= (1 << ADSC); //start conversion
@@ -49,7 +49,7 @@ int16_t adc_read(uint16_t channel){
     return ADC;
 }
 
-// calibrate the joystick center with 16 samples
+// calibrate the joystick center with 16 samples to find each axis's resting position, (joystick needs to be untouched when the board is powered up).
 void joystick_calibrate(void)
 {
     uint32_t sx = 0, sy = 0;
