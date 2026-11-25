@@ -26,23 +26,25 @@ static FILE lcd_str = FDEV_SETUP_STREAM(lcd_putchar, NULL, _FDEV_SETUP_WRITE);
 FUSES = {
 	.low = 0xFF, // LOW {SUT_CKSEL=EXTXOSC_8MHZ_XX_16KCK_14CK_65MS, CKOUT=CLEAR, CKDIV8=CLEAR}
 	.high = 0xD9, // HIGH {BOOTRST=CLEAR, BOOTSZ=2048W_3800, EESAVE=CLEAR, WDTON=CLEAR, SPIEN=SET, DWEN=CLEAR, RSTDISBL=CLEAR}
-	.extended = 0xFF, // EXTENDED {BODLEVEL=DISABLED}
+	.extended = 0xFD, // EXTENDED {BODLEVEL=Enabled}
 };
 
 LOCKBITS = 0xFF; // {LB=NO_LOCK, BLB0=NO_LOCK, BLB1=NO_LOCK}
 
 
 void init(void){
-    //initiate all modules 
+    //initiate all modules
+    uart_init();
+    
     lcd_init();
     adc_init();
-    uart_init();
     button_init();
     joystick_calibrate();
 }
 
 int main(void)
 {
+    
     //initiate all modules 
     init();
     

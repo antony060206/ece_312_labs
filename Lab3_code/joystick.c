@@ -64,4 +64,4 @@ void joystick_calibrate(void)
 
 // main.c calls these 2 functions to get the percentage of the ADC. 
 int16_t joystick_x(void) { return adc_conversion(adc_read(ADC_VRX), x_center); }
-int16_t joystick_y(void) { return adc_conversion(adc_read(ADC_VRY), y_center); }
+int16_t joystick_y(void) { return -adc_conversion(adc_read(ADC_VRY), y_center); }
