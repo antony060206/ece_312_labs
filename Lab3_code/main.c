@@ -46,7 +46,7 @@ int main(void)
     //initiate all modules 
     init();
     
-    //start-up
+    //start-up, ask for the game name
     fprintf(&uart_str, "\r\n$Q?");
     uart_gets();
     lcd_puts_centred(line, 0); 
@@ -59,21 +59,29 @@ int main(void)
     
     
     for (;;) {
-        
+
+		// Send the controller status. '%+04d' gives show the sign and fill upto 4 characters.
+		// Ex: Stick centered at X-axis (X = 0 = +000), 50% down in Y (Y = -50 = -050), and button pressed (1) gives: C+000-0501.
         fprintf(&uart_str, "\r\nC%+04d%+04d%u", joystick_x(), joystick_y(), button_fire());
+
+		// Ask for score and ammo. If statement checks for formatting, (if mistyped then keep old score and ammo), if valid then copy 3 digits after 'S' into score, and 3 digits after the 'A" into ammo.
+		// Positions 1-3 go into score, Positions 5-7 go into ammo.
         fprintf(&uart_str, "\r\n$SaaaAaaa?");
         uart_gets();
-        
         if (line[0] == 'S' && line[4] == 'A') {
             memcpy(score, line + 1, 3);
             memcpy(ammo,  line + 5, 3);
         }
 
+		// Update the lcd. Move cursor to second row and write the handle, ammo and score.
         lcd_gotoxy(0, 1);
         fprintf(&lcd_str, "%s  %s  %s  ", handle, ammo, score);
 
+		// Print question mark, and get response.
         fprintf(&uart_str, "\n?");
         uart_gets();
+		
+		// Look at the first letter typed, and check if it matches. If it matches then print the score or ammo value. For unknown values send error message.
         if (line[0] == 'S') {
             fprintf(&uart_str, "\r\nS%s", score);
         }
