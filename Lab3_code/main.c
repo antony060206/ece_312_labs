@@ -1,6 +1,8 @@
 /* 
  * File:   main.c
- * Author: zfeng8
+ * Author: zfeng8, ktaggar
+ *
+ * AI usage for learning and research purposes (50%), human code (50%)
  *
  * Created on November 21, 2026, 5:51 PM
  */
