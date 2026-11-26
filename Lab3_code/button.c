@@ -1,4 +1,11 @@
-#include "defines.h"
+/* 
+ * File:   button.c
+ * Author: zfeng8, ktaggar
+ *
+ * Created on November 22, 2026, 4:29 PM
+ */
+
+ #include "defines.h"
 #include <avr/io.h>
 #include "button.h"      
 

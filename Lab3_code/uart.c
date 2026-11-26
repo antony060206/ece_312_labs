@@ -1,3 +1,9 @@
+/* 
+ * File:   uart.c
+ * Author: zfeng8, ktaggar
+ *
+ * Created on November 22, 2026, 12:44 PM
+ */
 
 #include "defines.h"
 #include <avr/io.h>
