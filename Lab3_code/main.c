@@ -1,6 +1,7 @@
 /* 
  * File:   main.c
- * Author: zfeng8, ktaggar
+ * Name: Antony Feng, Komaldeep Taggar
+ * CCID: zfeng8, ktaggar
  *
  * AI usage for learning and research purposes (50%), human code (50%)
  *

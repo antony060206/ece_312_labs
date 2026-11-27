@@ -1,0 +1,20 @@
+[
+{
+  "directory": "E:/github_repo/ece_312_labs/ECE_312_lab2_complete.X/_build/ECE_312_lab2_complete/default",
+  "command": "cd .",
+  "file": "E:/github_repo/ece_312_labs/ECE_312_lab2_complete.X/buzzer.c",
+  "output": "E:/github_repo/ece_312_labs/ECE_312_lab2_complete.X/_build/ECE_312_lab2_complete/default/CMakeFiles/ECE_312_lab2_complete_default_default_AVR_GCC_compile.dir/E_/github_repo/ece_312_labs/ECE_312_lab2_complete.X/buzzer.c"
+},
+{
+  "directory": "E:/github_repo/ece_312_labs/ECE_312_lab2_complete.X/_build/ECE_312_lab2_complete/default",
+  "command": "cd .",
+  "file": "E:/github_repo/ece_312_labs/ECE_312_lab2_complete.X/main.c",
+  "output": "E:/github_repo/ece_312_labs/ECE_312_lab2_complete.X/_build/ECE_312_lab2_complete/default/CMakeFiles/ECE_312_lab2_complete_default_default_AVR_GCC_compile.dir/E_/github_repo/ece_312_labs/ECE_312_lab2_complete.X/main.c"
+},
+{
+  "directory": "E:/github_repo/ece_312_labs/ECE_312_lab2_complete.X/_build/ECE_312_lab2_complete/default",
+  "command": "cd .",
+  "file": "E:/github_repo/ece_312_labs/ECE_312_lab2_complete.X/songs.c",
+  "output": "E:/github_repo/ece_312_labs/ECE_312_lab2_complete.X/_build/ECE_312_lab2_complete/default/CMakeFiles/ECE_312_lab2_complete_default_default_AVR_GCC_compile.dir/E_/github_repo/ece_312_labs/ECE_312_lab2_complete.X/songs.c"
+}
+]

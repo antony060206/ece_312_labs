@@ -161,7 +161,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x372
+.text           0x00000000      0x354
  *(.vectors)
  .vectors       0x00000000       0x2a C:/Program Files/Microchip/MPLABX/v6.35/packs/Microchip/ATtiny_DFP/3.4.278/gcc/dev/attiny2313a/avr25/tiny-stack/crtattiny2313a.o
                 0x00000000                __vector_default
@@ -247,40 +247,38 @@ END GROUP
                 0x0000012c                __vector_20
                 0x0000012e                        . = ALIGN (0x2)
  *(.text.*)
- .text.hcsr04_read_us
-                0x0000012e       0x62 build/default/production/main.o
- .text.hold_ms  0x00000190       0x22 build/default/production/main.o
- .text.main     0x000001b2       0xb4 build/default/production/main.o
-                0x000001b2                main
+ .text.hold_ms  0x0000012e       0x22 build/default/production/main.o
+ .text.main     0x00000150       0xf8 build/default/production/main.o
+                0x00000150                main
  .text.buzzer_init
-                0x00000266       0x1a build/default/production/buzzer.o
-                0x00000266                buzzer_init
+                0x00000248       0x1a build/default/production/buzzer.o
+                0x00000248                buzzer_init
  .text.buzzer_off
-                0x00000280       0x1c build/default/production/buzzer.o
-                0x00000280                buzzer_off
+                0x00000262       0x1c build/default/production/buzzer.o
+                0x00000262                buzzer_off
  .text.buzzer_tone
-                0x0000029c       0x4e build/default/production/buzzer.o
-                0x0000029c                buzzer_tone
+                0x0000027e       0x4e build/default/production/buzzer.o
+                0x0000027e                buzzer_tone
  .text.buzzer_silence
-                0x000002ea        0xa build/default/production/buzzer.o
-                0x000002ea                buzzer_silence
+                0x000002cc        0xa build/default/production/buzzer.o
+                0x000002cc                buzzer_silence
  .text.song_length
-                0x000002f4       0x14 build/default/production/songs.o
-                0x000002f4                song_length
+                0x000002d6       0x14 build/default/production/songs.o
+                0x000002d6                song_length
  .text.song_note
-                0x00000308       0x26 build/default/production/songs.o
-                0x00000308                song_note
+                0x000002ea       0x26 build/default/production/songs.o
+                0x000002ea                song_note
  .text.pitch_timer0
-                0x0000032e       0x24 build/default/production/songs.o
-                0x0000032e                pitch_timer0
+                0x00000310       0x24 build/default/production/songs.o
+                0x00000310                pitch_timer0
  .text.pitch_timer1
-                0x00000352       0x1c build/default/production/songs.o
-                0x00000352                pitch_timer1
-                0x0000036e                        . = ALIGN (0x2)
+                0x00000334       0x1c build/default/production/songs.o
+                0x00000334                pitch_timer1
+                0x00000350                        . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000036e        0x0 C:/avr8-gnu-toolchain-win32_x86_64/bin/../lib/gcc/avr/15.1.0/avr25/tiny-stack\libgcc.a(_exit.o)
-                0x0000036e                _exit
-                0x0000036e                exit
+ .fini9         0x00000350        0x0 C:/avr8-gnu-toolchain-win32_x86_64/bin/../lib/gcc/avr/15.1.0/avr25/tiny-stack\libgcc.a(_exit.o)
+                0x00000350                _exit
+                0x00000350                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -299,17 +297,17 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000036e        0x4 C:/avr8-gnu-toolchain-win32_x86_64/bin/../lib/gcc/avr/15.1.0/avr25/tiny-stack\libgcc.a(_exit.o)
+ .fini0         0x00000350        0x4 C:/avr8-gnu-toolchain-win32_x86_64/bin/../lib/gcc/avr/15.1.0/avr25/tiny-stack\libgcc.a(_exit.o)
  *(.fini0)
  *(.hightext)
  *(.hightext*)
  *(.progmemx.*)
-                0x00000372                        . = ALIGN (0x2)
+                0x00000354                        . = ALIGN (0x2)
  *(.jumptables)
  *(.jumptables*)
-                0x00000372                        _etext = .
+                0x00000354                        _etext = .
 
-.data           0x00800060        0x0 load address 0x00000372
+.data           0x00800060        0x0 load address 0x00000354
                 [!provide]                        PROVIDE (__data_start = .)
  *(.data)
  *(.data*)
@@ -327,8 +325,8 @@ END GROUP
  *(.bss*)
  *(COMMON)
                 [!provide]                        PROVIDE (__bss_end = .)
-                0x00000372                        __data_load_start = LOADADDR (.data)
-                0x00000372                        __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000354                        __data_load_start = LOADADDR (.data)
+                0x00000354                        __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800060        0x0
                 [!provide]                        PROVIDE (__noinit_start = .)

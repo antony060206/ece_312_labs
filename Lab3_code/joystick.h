@@ -1,7 +1,7 @@
 /* 
  * File:   joystick.h
- * Author: zfeng8, ktaggar
- *
+ * Name: Antony Feng, Komaldeep Taggar
+ * CCID: zfeng8, ktaggar
  * Created on November 22, 2026, 11:45 AM
  */
 

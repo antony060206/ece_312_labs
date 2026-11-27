@@ -21,17 +21,17 @@ PATH:=C:/Program Files/Microchip/MPLABX/v6.35/mplab_platform/platform/../mplab_i
 # Path to java used to run MPLAB X when this makefile was created
 MP_JAVA_PATH="C:\Program Files\Microchip\MPLABX\v6.35\sys\java\zulu8.86.0.25-ca-fx-jre8.0.452-win_x64/bin/"
 OS_CURRENT="$(shell uname -s)"
-MP_CC="C:\Tools\avr8-gnu-toolchain-win32_x86_64\bin\avr-gcc.exe"
-MP_CPPC="C:\Tools\avr8-gnu-toolchain-win32_x86_64\bin\avr-g++.exe"
+MP_CC="C:\avr8-gnu-toolchain-win32_x86_64\bin\avr-gcc.exe"
+MP_CPPC="C:\avr8-gnu-toolchain-win32_x86_64\bin\avr-g++.exe"
 # MP_BC is not defined
-MP_AS="C:\Tools\avr8-gnu-toolchain-win32_x86_64\bin\avr-as.exe"
-MP_LD="C:\Tools\avr8-gnu-toolchain-win32_x86_64\bin\avr-ld.exe"
-MP_AR="C:\Tools\avr8-gnu-toolchain-win32_x86_64\bin\avr-gcc-ar.exe"
+MP_AS="C:\avr8-gnu-toolchain-win32_x86_64\bin\avr-as.exe"
+MP_LD="C:\avr8-gnu-toolchain-win32_x86_64\bin\avr-ld.exe"
+MP_AR="C:\avr8-gnu-toolchain-win32_x86_64\bin\avr-gcc-ar.exe"
 DEP_GEN=${MP_JAVA_PATH}java -jar "C:/Program Files/Microchip/MPLABX/v6.35/mplab_platform/platform/../mplab_ide/modules/../../bin/extractobjectdependencies.jar"
-MP_CC_DIR="C:\Tools\avr8-gnu-toolchain-win32_x86_64\bin"
-MP_CPPC_DIR="C:\Tools\avr8-gnu-toolchain-win32_x86_64\bin"
+MP_CC_DIR="C:\avr8-gnu-toolchain-win32_x86_64\bin"
+MP_CPPC_DIR="C:\avr8-gnu-toolchain-win32_x86_64\bin"
 # MP_BC_DIR is not defined
-MP_AS_DIR="C:\Tools\avr8-gnu-toolchain-win32_x86_64\bin"
-MP_LD_DIR="C:\Tools\avr8-gnu-toolchain-win32_x86_64\bin"
-MP_AR_DIR="C:\Tools\avr8-gnu-toolchain-win32_x86_64\bin"
+MP_AS_DIR="C:\avr8-gnu-toolchain-win32_x86_64\bin"
+MP_LD_DIR="C:\avr8-gnu-toolchain-win32_x86_64\bin"
+MP_AR_DIR="C:\avr8-gnu-toolchain-win32_x86_64\bin"
 DFP_DIR=C:/Program Files/Microchip/MPLABX/v6.35/packs/Microchip/ATmega_DFP/3.6.299

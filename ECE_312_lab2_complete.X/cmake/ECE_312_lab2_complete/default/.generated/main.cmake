@@ -1,0 +1,108 @@
+include("${CMAKE_CURRENT_LIST_DIR}/rule.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/file.cmake")
+
+set(ECE_312_lab2_complete_default_library_list )
+
+set(OUTPUT_SUFFIX elf)
+# Handle files with suffix s, for group default-AVR-GCC
+if(ECE_312_lab2_complete_default_default_AVR_GCC_FILE_TYPE_assemble)
+add_library(ECE_312_lab2_complete_default_default_AVR_GCC_assemble OBJECT ${ECE_312_lab2_complete_default_default_AVR_GCC_FILE_TYPE_assemble})
+    ECE_312_lab2_complete_default_default_AVR_GCC_assemble_rule(ECE_312_lab2_complete_default_default_AVR_GCC_assemble)
+    list(APPEND ECE_312_lab2_complete_default_library_list "$<TARGET_OBJECTS:ECE_312_lab2_complete_default_default_AVR_GCC_assemble>")
+
+endif()
+
+# Handle files with suffix S, for group default-AVR-GCC
+if(ECE_312_lab2_complete_default_default_AVR_GCC_FILE_TYPE_assembleWithPreprocess)
+add_library(ECE_312_lab2_complete_default_default_AVR_GCC_assembleWithPreprocess OBJECT ${ECE_312_lab2_complete_default_default_AVR_GCC_FILE_TYPE_assembleWithPreprocess})
+    ECE_312_lab2_complete_default_default_AVR_GCC_assembleWithPreprocess_rule(ECE_312_lab2_complete_default_default_AVR_GCC_assembleWithPreprocess)
+    list(APPEND ECE_312_lab2_complete_default_library_list "$<TARGET_OBJECTS:ECE_312_lab2_complete_default_default_AVR_GCC_assembleWithPreprocess>")
+
+endif()
+
+# Handle files with suffix [cC], for group default-AVR-GCC
+if(ECE_312_lab2_complete_default_default_AVR_GCC_FILE_TYPE_compile)
+add_library(ECE_312_lab2_complete_default_default_AVR_GCC_compile OBJECT ${ECE_312_lab2_complete_default_default_AVR_GCC_FILE_TYPE_compile})
+    ECE_312_lab2_complete_default_default_AVR_GCC_compile_rule(ECE_312_lab2_complete_default_default_AVR_GCC_compile)
+    list(APPEND ECE_312_lab2_complete_default_library_list "$<TARGET_OBJECTS:ECE_312_lab2_complete_default_default_AVR_GCC_compile>")
+
+endif()
+
+# Handle files with suffix cpp, for group default-AVR-GCC
+if(ECE_312_lab2_complete_default_default_AVR_GCC_FILE_TYPE_compile_cpp)
+add_library(ECE_312_lab2_complete_default_default_AVR_GCC_compile_cpp OBJECT ${ECE_312_lab2_complete_default_default_AVR_GCC_FILE_TYPE_compile_cpp})
+    ECE_312_lab2_complete_default_default_AVR_GCC_compile_cpp_rule(ECE_312_lab2_complete_default_default_AVR_GCC_compile_cpp)
+    list(APPEND ECE_312_lab2_complete_default_library_list "$<TARGET_OBJECTS:ECE_312_lab2_complete_default_default_AVR_GCC_compile_cpp>")
+
+endif()
+
+# Handle files with suffix elf, for group default-AVR-GCC
+if(ECE_312_lab2_complete_default_default_AVR_GCC_FILE_TYPE_objcopy_ihex)
+add_library(ECE_312_lab2_complete_default_default_AVR_GCC_objcopy_ihex OBJECT ${ECE_312_lab2_complete_default_default_AVR_GCC_FILE_TYPE_objcopy_ihex})
+    ECE_312_lab2_complete_default_default_AVR_GCC_objcopy_ihex_rule(ECE_312_lab2_complete_default_default_AVR_GCC_objcopy_ihex)
+    list(APPEND ECE_312_lab2_complete_default_library_list "$<TARGET_OBJECTS:ECE_312_lab2_complete_default_default_AVR_GCC_objcopy_ihex>")
+
+endif()
+
+# Handle files with suffix elf, for group default-AVR-GCC
+if(ECE_312_lab2_complete_default_default_AVR_GCC_FILE_TYPE_objcopy_eep)
+add_library(ECE_312_lab2_complete_default_default_AVR_GCC_objcopy_eep OBJECT ${ECE_312_lab2_complete_default_default_AVR_GCC_FILE_TYPE_objcopy_eep})
+    ECE_312_lab2_complete_default_default_AVR_GCC_objcopy_eep_rule(ECE_312_lab2_complete_default_default_AVR_GCC_objcopy_eep)
+    list(APPEND ECE_312_lab2_complete_default_library_list "$<TARGET_OBJECTS:ECE_312_lab2_complete_default_default_AVR_GCC_objcopy_eep>")
+
+endif()
+
+# Handle files with suffix elf, for group default-AVR-GCC
+if(ECE_312_lab2_complete_default_default_AVR_GCC_FILE_TYPE_objcopy_lss)
+add_library(ECE_312_lab2_complete_default_default_AVR_GCC_objcopy_lss OBJECT ${ECE_312_lab2_complete_default_default_AVR_GCC_FILE_TYPE_objcopy_lss})
+    ECE_312_lab2_complete_default_default_AVR_GCC_objcopy_lss_rule(ECE_312_lab2_complete_default_default_AVR_GCC_objcopy_lss)
+    list(APPEND ECE_312_lab2_complete_default_library_list "$<TARGET_OBJECTS:ECE_312_lab2_complete_default_default_AVR_GCC_objcopy_lss>")
+
+endif()
+
+# Handle files with suffix elf, for group default-AVR-GCC
+if(ECE_312_lab2_complete_default_default_AVR_GCC_FILE_TYPE_objcopy_srec)
+add_library(ECE_312_lab2_complete_default_default_AVR_GCC_objcopy_srec OBJECT ${ECE_312_lab2_complete_default_default_AVR_GCC_FILE_TYPE_objcopy_srec})
+    ECE_312_lab2_complete_default_default_AVR_GCC_objcopy_srec_rule(ECE_312_lab2_complete_default_default_AVR_GCC_objcopy_srec)
+    list(APPEND ECE_312_lab2_complete_default_library_list "$<TARGET_OBJECTS:ECE_312_lab2_complete_default_default_AVR_GCC_objcopy_srec>")
+
+endif()
+
+# Handle files with suffix elf, for group default-AVR-GCC
+if(ECE_312_lab2_complete_default_default_AVR_GCC_FILE_TYPE_objcopy_sig)
+add_library(ECE_312_lab2_complete_default_default_AVR_GCC_objcopy_sig OBJECT ${ECE_312_lab2_complete_default_default_AVR_GCC_FILE_TYPE_objcopy_sig})
+    ECE_312_lab2_complete_default_default_AVR_GCC_objcopy_sig_rule(ECE_312_lab2_complete_default_default_AVR_GCC_objcopy_sig)
+    list(APPEND ECE_312_lab2_complete_default_library_list "$<TARGET_OBJECTS:ECE_312_lab2_complete_default_default_AVR_GCC_objcopy_sig>")
+
+endif()
+
+# Handle files with suffix elf, for group default-AVR-GCC
+if(ECE_312_lab2_complete_default_default_AVR_GCC_FILE_TYPE_objcopy_memusage)
+add_library(ECE_312_lab2_complete_default_default_AVR_GCC_objcopy_memusage OBJECT ${ECE_312_lab2_complete_default_default_AVR_GCC_FILE_TYPE_objcopy_memusage})
+    ECE_312_lab2_complete_default_default_AVR_GCC_objcopy_memusage_rule(ECE_312_lab2_complete_default_default_AVR_GCC_objcopy_memusage)
+    list(APPEND ECE_312_lab2_complete_default_library_list "$<TARGET_OBJECTS:ECE_312_lab2_complete_default_default_AVR_GCC_objcopy_memusage>")
+
+endif()
+
+
+# Main target for this project
+add_executable(ECE_312_lab2_complete_default_image_fYHJ6UoL ${ECE_312_lab2_complete_default_library_list})
+
+set_target_properties(ECE_312_lab2_complete_default_image_fYHJ6UoL PROPERTIES
+    OUTPUT_NAME "default"
+    SUFFIX ".elf"
+    ADDITIONAL_CLEAN_FILES "${output_extensions}"
+    RUNTIME_OUTPUT_DIRECTORY "${ECE_312_lab2_complete_default_output_dir}")
+target_link_libraries(ECE_312_lab2_complete_default_image_fYHJ6UoL PRIVATE ${ECE_312_lab2_complete_default_default_AVR_GCC_FILE_TYPE_link})
+# Add the link options from the rule file.
+ECE_312_lab2_complete_default_link_rule( ECE_312_lab2_complete_default_image_fYHJ6UoL)
+
+
+#Add objcopy steps
+ECE_312_lab2_complete_default_objcopy_ihex_rule(ECE_312_lab2_complete_default_image_fYHJ6UoL)
+ECE_312_lab2_complete_default_objcopy_eep_rule(ECE_312_lab2_complete_default_image_fYHJ6UoL)
+ECE_312_lab2_complete_default_objcopy_lss_rule(ECE_312_lab2_complete_default_image_fYHJ6UoL)
+ECE_312_lab2_complete_default_objcopy_srec_rule(ECE_312_lab2_complete_default_image_fYHJ6UoL)
+ECE_312_lab2_complete_default_objcopy_sig_rule(ECE_312_lab2_complete_default_image_fYHJ6UoL)
+ECE_312_lab2_complete_default_objcopy_memusage_rule(ECE_312_lab2_complete_default_image_fYHJ6UoL)
+
